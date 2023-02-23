@@ -24,9 +24,11 @@ body {
 	text-align: center;
 	list-style-type: none;
 	position: relative;
-	padding: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 	transition: .5s;
 }
+
 .tree li::before, .tree li::after {
 	content: '';
 	position: absolute;
@@ -91,7 +93,7 @@ body {
 	border-radius: 5px;
 	color: #666;
 	padding: 8px;
-	font-size: 12px;
+	font-size: 0.3vw;
 	text-transform: uppercase;
 	letter-spacing: 1px;
 	font-weight: 500;
