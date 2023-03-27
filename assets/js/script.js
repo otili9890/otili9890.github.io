@@ -55,7 +55,42 @@ $(window).on("load", function() {
     });
 });
 
-// top image paralax effect
+// Mouse trail inspired by https://www.youtube.com/watch?v=CZIJKkwc8l8&list=PLAaQW5Dcffv-UUEM4msw_VupY7DS9CLOu&index=3 
+const trailer = document.getElementById('trailer');
+window.onmousemove = e => {
+  animateTrailer(e);
+}
+
+const animateTrailer = (e) => {
+  const x = e.x - trailer.offsetWidth / 2,
+  y = e.y - trailer.offsetWidth / 2;
+  console.log("X is " + x, ", y is " + y);
+
+
+const keyframes = {
+  transform: `translate(${x}px, ${y}px)`
+}
+
+trailer.animate(keyframes, { 
+  duration: 800, 
+  fill: "forwards" 
+});
+}
+
+/* top image paralax effect
+
+document.querySelector('.body').addEventListener('mousemove', e => {
+  const x =e.clientX;
+  const y =e.clientY;
+
+  document.getElementsByClassName('.header').item.styles.translate = '
+  translate(
+    ${x / 150}%,
+    ${y / 150}%
+    )'; 
+  
+});
+
 var rect = $('.header')[0].getBoundingClientRect();
 var mouse = {x: 0, y: 0, moved: false};
 
@@ -175,5 +210,5 @@ function initMap() {
           stylers: [{color: '#17263c'}]
         }
       ]
-    });
-}
+    }); 
+} */
