@@ -76,6 +76,30 @@ body {
   outline: 0 !important;
 }
 
+body:hover > #trailer {
+  opacity: 1;
+}
+
+#trailer {
+  height: 20px;
+  width: 20px;
+  /*color: linear-gradient(to bottom,  #000000 0%,#000000 50%,#ff0000 50%,#ff0000 100%);*/
+  background: yellow;
+  border-radius: 20px;
+  
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  z-index: 10000;
+  
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 500ms ease;
+  
+  display: grid;
+  place-items: center;
+}
+
 hr {
   box-sizing: content-box;
   height: 0;
@@ -11419,22 +11443,40 @@ pre .code {
 
 .navbar .brand .brand-img {
   object-fit: cover;
-  position: absolute;
+  position: inherit;
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
       -ms-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -webkit-transition: .5s !important;
+  transition: .5s !important;
+  -weblit-transition: .5s !important;
+  z-index: 3;
+  box-shadow: 0 5px 1px rgba(128, 128, 128, 0.13);
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.navbar .brand #brand-bg {
+  width: 170px;
+  height: 170px;
+  position: absolute;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   -weblit-transform: translate(-50%, -50%);
-  border: 10px solid white;
   -webkit-transition: .5s !important;
   transition: .5s !important;
   -weblit-transition: .5s !important;
   z-index: 2;
   box-shadow: 0 5px 1px rgba(128, 128, 128, 0.13);
-  width: 170px;
-  height: 170px;
+  left: 50%;
+  top: 50%;
   border-radius: 50%;
+  background-image: linear-gradient(to bottom, black 0%, black 50%, red 50%, red 100%);
 }
 
 .navbar .brand .brand-txt {
@@ -11443,7 +11485,7 @@ pre .code {
   opacity: 0;
   -webkit-transition: 1s;
   transition: 1s;
-  -weblit-transition: 1s;
+  -webkit-transition: 1s;
   z-index: 1;
 }
 
@@ -11464,6 +11506,11 @@ pre .code {
 }
 
 .navbar.affix .brand-img {
+  top: -10px;
+  opacity: 0;
+}
+
+.navbar.affix #brand-bg {
   top: -10px;
   opacity: 0;
 }
