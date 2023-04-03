@@ -72,6 +72,16 @@ body {
   background-color: #fff;
 }
 
+.quote {
+  font-family: "Caveat", 'Trebuchet MS', sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 2;
+  color: whitesmoke;
+  text-align: center;
+  margin: auto;
+}
+
 [tabindex="-1"]:focus {
   outline: 0 !important;
 }
