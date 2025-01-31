@@ -1,52 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="Welcome to Otis Carmichael's Portfolio">
-        <meta name="author" content="Otis C"> 
-        <title>Otis Carmichael Portfolio</title>
-        <!-- font icons -->
-        <link rel="stylesheet" href="assets/vendors/themify-icons/css/themify-icons.css">
-        <link rel="stylesheet" href="assets/css/tree.css">
-        <script src="assets/js/pls-rotate.js"></script>
-    </head>
-    <body>
-        <div class="container">
-            <a href="index.html">
-                <button>Return to Home</button>
-            </a>
-            <div class="row">
-                <div class="tree">
-                    <ul>
-                        <li> <a href="#"><img src="assets/imgs/advertising-1.jpg"><span>Grace <br> Isaacson</span></a>
-                        <ul>
-                            <li><a href="#"><img src="assets/imgs/Profile Imgs/joyce_isaacson.JPG"><span>Joyce <br> Isaacson</span></a>
-                                <ul>
-                                    <li> <a href="#"><img src="assets/imgs/Profile Imgs/judith_watson.JPG"><span>Judith <br> Watson</span></a> 
-                                        <ul>
-                                            <li> <a href="#"><img src="assets/imgs/Profile Imgs/otis_carmichael.jpg"><span>Otis <br> Carmichael</span></a> </li>
-                                            <li> <a href="#"><img src="assets/imgs/Profile Imgs/rani_carmichael.jpg"><span>Rani <br> Carmichael</span></a> </li>
-                                        </ul>
-                                    </li>
-                                    <li> <a href="#"><img src="images/4.jpg"><span>Donald <br> Watson</span></a> </li>
-                                    <li> <a href="#"><img src=""><span>Lisa <br> Watson</span></a> </li>
-                                    <li> <a href="#"><img src="images/4.jpg"><span>Margaret <br> Watson</span></a> </li>
-                                </ul>
-                            </li>
-                        <li> <a href="#"><img src="images/5.jpg"><span>Grand Child</span></a>
-                        <ul>
-                            <li> <a href="#"><img src="images/6.jpg"><span>Great Grand Child</span></a> </li>
-                            <li> <a href="#"><img src="images/7.jpg"><span>Great Grand Child</span></a> </li>
-                            <li> <a href="#"><img src="images/8.jpg"><span>Great Grand Child</span></a> </li>
-                        </ul>
-                    </li>
-                    <li><a href="#"><img src="images/9.jpg"><span>Grand Child</span></a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-    </div>
-    </div>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tree</title>
+    <script src="./assets/js/familytree.js"></script>
+</head>
+<body>
+    <a href="index.html">
+        <button>Return to Home</button>
+    </a>   
+    <div id="tree"></div>
+</body>
+<script>
+    FamilyTree.templates.tommy_male.img_0 = 
+    `<image preserveAspectRatio="xMidYMid slice" xlink:href="{val}" x="150" y="-13" width="80" height="80"></image>`;
+    FamilyTree.templates.tommy_female.img_0 = 
+    `<image preserveAspectRatio="xMidYMid slice" xlink:href="{val}" x="150" y="-13" width="80" height="80"></image>`;
+
+    let family = new FamilyTree("#tree", {
+        // options
+        mouseScrool: FamilyTree.none,
+        nodeBinding: {
+            field_0: "name",
+            field_1: "gender",
+            field_2: "image",
+            field_3: "children",
+            field_4: "spouse",
+            field_5: "dateOfBirth",
+            field_6: "dateOfDeath",
+            field_7: "notes",
+            img_0: "profile_img",
+        },
+        nodes: [
+            { id: 1, pids: [2], name: "Polly", gender: "female" },
+            { id: 2, pids: [1], name: "Paddy", gender: "male" },
+            { id: 3, mid: 1, fid: 2, pids: [12, 4, 7], name: "Rosie", gender: "female", dateOfBirth: "1898?", notes: "Date of birth doesn't align" },
+            { id: 4, pids: [3], name: "Billy ", gender: "male", notes: "With Rosie before Dingeroo?" },
+            { id: 7, pids: [3], name: "Dingeroo Jack ", gender: "male", notes: "Tribal marriage with Rosie in 1908 until his death in 1931. Had son Digeroo Jack with first wife Nelly, Digeroo's step-brother was Nuggett Newman." },
+            { id: 5, mid: 3, fid: 4, name: "Lena ", gender: "female", dateOfBirth: "~1895" },
+            { id: 6, mid: 3, fid: 4, pids: [13, 18], name: "Mabel ", gender: "female", dateOfBirth: "1900" },
+            { id: 8, mid: 3, fid: 7, name: "Ivy ", gender: "female", dateOfBirth: "1909" },
+            { id: 9, mid: 3, fid: 7, name: "Kathleen ", gender: "female", dateOfBirth: "1922" },
+            { id: 10, mid: 3, fid: 7, name: "Daisy ", gender: "female", dateOfBirth: "?" },
+            { id: 11, mid: 3, fid: 7, name: "Alice ", gender: "female", dateOfBirth: "?" },
+            { id: 12, pids: [3], name: "Herbert Major ", gender: "male", notes: "Tribal marriage with Rosie in 1931 until her death in 1954."},
+            { id: 18, pids: [6], name: "Arthur (Poddy) Daly", gender: "male", notes: "Tribal marriage with Mabel in 1927."},
+            { id: 14, mid: 6, fid: 13, pids: [23], name: "Grace Camp (Isaacson)", gender: "female", dateOfBirth: "1912" },
+            { id: 15, mid: 6, name: "Paddy ", gender: "female", dateOfBirth: "1912" },
+            { id: 16, mid: 6, name: "Daisy (Ah Fat)", gender: "female", dateOfBirth: "1912"},
+            { id: 17, mid: 6, name: "Annie (Leon)", gender: "female", dateOfBirth: "1912", notes: "Father remembered by her as a chinese gardner." },
+            { id: 13, pids: [6], name: "James Camp", gender: "male"},
+            { id: 19, mid: 6, fid: 18, name: "Amy Daly (Trindle)", gender: "female" },
+            { id: 20, mid: 6, fid: 18, name: "Dinny Daly (Dennis) ", gender: "male" },
+            { id: 21, mid: 6, fid: 18, name: "Danny Daly", gender: "male" },
+            { id: 22, mid: 6, fid: 18, name: "Donny (Jack) Daly", gender: "male" },
+            { id: 23, pids: [14], name: "Edwin (Alfred) Isaacson", gender: "male" },
+            { id: 24, mid: 14, fid: 23, pids: [28], name: "Joyce Isaacson (Watson)", gender: "female", dateOfBirth: "", profile_img: "./assets/imgs/Profile Imgs/joyce_isaacson.jpg"},
+            { id: 25, mid: 14, fid: 23, name: "Kenneth Isaacson", gender: "male", dateOfBirth: ""},
+            { id: 26, mid: 14, fid: 23, name: "Rhonda Isaacson", gender: "female", dateOfBirth: ""},
+            { id: 27, mid: 14, fid: 23, name: "Keith (Kit) Isaacson", gender: "male", dateOfBirth: ""},
+            { id: 28, pids: [24], name: "Donald William Watson", gender: "male", notes: "Married Joyce Isaacson in 1956." },
+            { id: 29, mid: 24, fid: 28, pids: [33], name: "Donald Watson", gender: "male", dateOfBirth: ""},
+            { id: 30, mid: 24, fid: 28, pids: [34], name: "Judith Anne Watson", gender: "female", dateOfBirth: "", profile_img: "./assets/imgs/Profile Imgs/judith_watson.jpg"},
+            { id: 31, mid: 24, fid: 28, pids: [35], name: "Margaret Watson", gender: "female", dateOfBirth: ""},
+            { id: 32, mid: 24, fid: 28, pids: [36], name: "Lisa Watson", gender: "female", dateOfBirth: ""},
+            { id: 33, pids: [29], name: "Dana Lee", gender: "female", notes: "Married Donald Watson in ..." },
+            { id: 34, pids: [30], name: "Peter Carmichael", gender: "male", notes: "" },
+            { id: 35, pids: [31], name: "Keith Kuchenmeister", gender: "male", notes: "" },
+            { id: 36, pids: [32], name: "Greg Arrowsmith", gender: "male", notes: "" },
+            { id: 37, mid: 33, fid: 29, name: "Tim Watson", gender: "male", dateOfBirth: ""},
+            { id: 38, mid: 33, fid: 29, name: "Emma Watson", gender: "female", dateOfBirth: ""},
+            { id: 39, mid: 33, fid: 29, name: "Damien Watson", gender: "male", dateOfBirth: ""},
+            { id: 40, mid: 30, fid: 34, name: "Otis Carmichael", gender: "male", dateOfBirth: "2000", profile_img: "./assets/imgs/Profile Imgs/otis_carmichael.jpg"},
+            { id: 41, mid: 30, fid: 34, name: "Rani Carmichael", gender: "female", dateOfBirth: "2002", profile_img: "./assets/imgs/Profile Imgs/rani_carmichael.jpg"},
+            { id: 42, mid: 31, fid: 35, name: "Alex Watson", gender: "male", dateOfBirth: ""},
+            { id: 43, mid: 31, fid: 35, name: "Dan Watson", gender: "male", dateOfBirth: ""},
+            { id: 44, mid: 32, fid: 36, name: "Darcy Arrowsmith", gender: "female", dateOfBirth: ""},
+            { id: 45, mid: 32, fid: 36, name: "Patrick Arrowsmith", gender: "male", dateOfBirth: ""},
+            
+        ]  
+    });
+
+    console.log('Loaded family tree');
+ 
+
+</script> 
 </html>
