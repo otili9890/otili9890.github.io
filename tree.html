@@ -5,22 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tree</title>
     <script src="./assets/js/familytree.js"></script>
+	<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <a href="index.html">
-        <button>Return to Home</button>
-    </a>   
+    <div class="d-flex flex-row">
+        <a href="index.html">
+            <button>Return to Home</button>
+        </a>   
+        <h1 class="mx-auto">Family Tree</h1>
+    </div>
     <div id="tree"></div>
 </body>
 <script>
+    // Adds image to template
     FamilyTree.templates.tommy_male.img_0 = 
     `<image preserveAspectRatio="xMidYMid slice" xlink:href="{val}" x="150" y="-13" width="80" height="80"></image>`;
     FamilyTree.templates.tommy_female.img_0 = 
     `<image preserveAspectRatio="xMidYMid slice" xlink:href="{val}" x="150" y="-13" width="80" height="80"></image>`;
+    // Adds heart for minimising tree
+    FamilyTree.templates.tommy_female.defs =
+    `<g transform="matrix(0.05,0,0,0.05,-12,-9)" id="heart">
+        <path fill="#F57C00" d="M438.482,58.61c-24.7-26.549-59.311-41.655-95.573-41.711c-36.291,0.042-70.938,15.14-95.676,41.694l-8.431,8.909  l-8.431-8.909C181.284,5.762,98.663,2.728,45.832,51.815c-2.341,2.176-4.602,4.436-6.778,6.778 c-52.072,56.166-52.072,142.968,0,199.134l187.358,197.581c6.482,6.843,17.284,7.136,24.127,0.654 c0.224-0.212,0.442-0.43,0.654-0.654l187.29-197.581C490.551,201.567,490.551,114.77,438.482,58.61z"/>
+    <g>`;
+    FamilyTree.templates.tommy_male.defs =
+    `<g transform="matrix(0.05,0,0,0.05,-12,-9)" id="heart">
+        <path fill="#F57C00" d="M438.482,58.61c-24.7-26.549-59.311-41.655-95.573-41.711c-36.291,0.042-70.938,15.14-95.676,41.694l-8.431,8.909  l-8.431-8.909C181.284,5.762,98.663,2.728,45.832,51.815c-2.341,2.176-4.602,4.436-6.778,6.778 c-52.072,56.166-52.072,142.968,0,199.134l187.358,197.581c6.482,6.843,17.284,7.136,24.127,0.654 c0.224-0.212,0.442-0.43,0.654-0.654l187.29-197.581C490.551,201.567,490.551,114.77,438.482,58.61z"/>
+    <g>`;
+    // Sets search placeholder text
+    FamilyTree.SEARCH_PLACEHOLDER = "Search for a name";
 
     let family = new FamilyTree("#tree", {
         // options
         mouseScrool: FamilyTree.none,
+        // nodeMouseClick: FamilyTree.action.none,
+        scaleInitial:FamilyTree.match.height,
+        editForm: {readOnly: true},
+        toolbar: {
+            zoom: true,
+            fit: true,
+        },
+        menu: {
+            pdf: { text: "Export PDF" },
+        },
         nodeBinding: {
             field_0: "name",
             field_1: "gender",
@@ -30,6 +56,7 @@
             field_5: "dateOfBirth",
             field_6: "dateOfDeath",
             field_7: "notes",
+            field_8: "birthPlace",
             img_0: "profile_img",
         },
         nodes: [
@@ -66,12 +93,12 @@
             { id: 31, mid: 24, fid: 28, pids: [35], name: "Margaret Watson", gender: "female", dateOfBirth: ""},
             { id: 32, mid: 24, fid: 28, pids: [36], name: "Lisa Watson", gender: "female", dateOfBirth: ""},
             { id: 33, pids: [29], name: "Dana Lee", gender: "female", notes: "Married Donald Watson in ..." },
-            { id: 34, pids: [30], name: "Peter Carmichael", gender: "male", notes: "" },
+            { id: 34, pids: [30], name: "Peter Carmichael", gender: "male", notes: "", profile_img: "./assets/imgs/Profile Imgs/peter_carmichael.jpg"},
             { id: 35, pids: [31], name: "Keith Kuchenmeister", gender: "male", notes: "" },
             { id: 36, pids: [32], name: "Greg Arrowsmith", gender: "male", notes: "" },
             { id: 37, mid: 33, fid: 29, name: "Tim Watson", gender: "male", dateOfBirth: ""},
             { id: 38, mid: 33, fid: 29, name: "Emma Watson", gender: "female", dateOfBirth: ""},
-            { id: 39, mid: 33, fid: 29, name: "Damien Watson", gender: "male", dateOfBirth: ""},
+            { id: 39, mid: 33, fid: 29, name: "Damien Watson", gender: "male", dateOfBirth: "", profile_img: "./assets/imgs/Profile Imgs/damien_watson.jpg"},
             { id: 40, mid: 30, fid: 34, name: "Otis Carmichael", gender: "male", dateOfBirth: "2000", profile_img: "./assets/imgs/Profile Imgs/otis_carmichael.jpg"},
             { id: 41, mid: 30, fid: 34, name: "Rani Carmichael", gender: "female", dateOfBirth: "2002", profile_img: "./assets/imgs/Profile Imgs/rani_carmichael.jpg"},
             { id: 42, mid: 31, fid: 35, name: "Alex Watson", gender: "male", dateOfBirth: ""},
@@ -80,6 +107,24 @@
             { id: 45, mid: 32, fid: 36, name: "Patrick Arrowsmith", gender: "male", dateOfBirth: ""},
             
         ]  
+    });
+    // Control family collapse
+    family.on('expcollclick', function (sender, isCollapsing, nodeId) {
+        var node = family.getNode(nodeId);
+        if (isCollapsing) {
+            family.expandCollapse(nodeId, [], node.ftChildrenIds)
+        }
+        else {
+            family.expandCollapse(nodeId, node.ftChildrenIds, [])
+        }
+        return false;
+    });
+
+    family.on('render-link', function (sender, args) {
+        if (args.cnode.ppid != undefined)
+            args.html += '<use data-ctrl-ec-id="' + args.node.id + '" xlink:href="#heart" x="' + (args.p.xa) + '" y="' + (args.p.ya) + '"/>';
+        if (args.cnode.isPartner && args.node.partnerSeparation == 30)
+            args.html += '<use data-ctrl-ec-id="' + args.node.id + '" xlink:href="#heart" x="' + (args.p.xb) + '" y="' + (args.p.yb) + '"/>';
     });
 
     console.log('Loaded family tree');

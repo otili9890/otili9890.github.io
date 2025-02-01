@@ -72,6 +72,11 @@ body {
   background-color: #fff;
 }
 
+#tree {
+  height: 100%;
+  width: 100%;
+}
+
 .quote {
   font-family: "Caveat", 'Trebuchet MS', sans-serif;
   font-size: 2rem;
